@@ -1,7 +1,7 @@
 module.exports = class ClassifiedAdTitle {
   title;
 
-  #constructor(title) {
+  constructor(title) {
     if (title === undefined || title.length > 100) {
       throw new Error('Title cannot be longer that 100 characters');
     }

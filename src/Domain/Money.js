@@ -26,7 +26,7 @@ module.exports = class Money {
   static fromCurrency(amount, currency) {
     assert(currency instanceof CurrencyDetails);
 
-    return new Money(amount, currency);
+    return new this(amount, currency);
   }
 
   static fromCurrencyLookup(amount, currencyCode = 'EUR', currencyLookup) {
@@ -36,19 +36,19 @@ module.exports = class Money {
       throw new Error(`Currency ${currencyCode} is not valid`);
     }
 
-    return new Money(amount, currency);
+    return new this(amount, currency);
   }
 
   static fromDecimal(amount, currency = DefaultCurrency, currencyLookup) {
     assert(currencyLookup instanceof ICurrencyLookup);
 
-    return Money.fromCurrencyLookup(amount, currency, currencyLookup);
+    return this.fromCurrencyLookup(amount, currency, currencyLookup);
   }
 
   static fromString(amount, currency = DefaultCurrency, currencyLookup) {
     assert(currencyLookup instanceof ICurrencyLookup);
 
-    return Money.fromCurrencyLookup(Number.parseFloat(amount), currency, currencyLookup);
+    return this.fromCurrencyLookup(Number.parseFloat(amount), currency, currencyLookup);
   }
 
   get amount() {
@@ -68,7 +68,7 @@ module.exports = class Money {
       throw new Error('Cannot sum amounts with different currencies');
     }
 
-    return new Money(this.amount + summand.amount, this.currency);
+    return new this.constructor(this.amount + summand.amount, this.currency);
   }
 
   subtract(subtrashend) {
@@ -78,7 +78,7 @@ module.exports = class Money {
       throw new Error('Cannot subtract amounts with differenet currencies');
     }
 
-    return new Money(this.amount - subtrashend.amount, this.currency);
+    return new this.constructor(this.amount - subtrashend.amount, this.currency);
   }
 
   toString() {
