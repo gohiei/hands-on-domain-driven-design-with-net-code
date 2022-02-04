@@ -10,6 +10,8 @@ module.exports = class ClassifiedAdTitle {
   }
 
   static fromString(title) {
+    ClassifiedAdTitle.checkValidity(title);
+
     return new ClassifiedAdTitle(title);
   }
 
@@ -20,6 +22,20 @@ module.exports = class ClassifiedAdTitle {
       .replace('<b>', '**')
       .replace('</b>', '**');
 
-    return new ClassifiedAdTitle(supportedTagsReplaced.replace(/<.*?>/, ''));
+    const replacedTitle = supportedTagsReplaced.replace(/<.*?>/, '');
+
+    ClassifiedAdTitle.checkValidity(replacedTitle);
+
+    return new ClassifiedAdTitle(replacedTitle);
+  }
+
+  static checkValidity(value) {
+    if (value.length > 100) {
+      throw new RangeError('Title cannot be longer that 100 characters');
+    }
+  }
+
+  toString() {
+    return this.title;
   }
 }

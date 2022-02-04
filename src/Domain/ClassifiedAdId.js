@@ -8,4 +8,8 @@ module.exports = class ClassifiedAdId {
 
     this.id = id;
   }
+
+  toString() {
+    return this.id;
+  }
 }

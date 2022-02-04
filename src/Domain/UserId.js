@@ -8,4 +8,8 @@ module.exports = class UserId {
 
     this.id = id;
   }
+
+  toString() {
+    return this.id;
+  }
 }

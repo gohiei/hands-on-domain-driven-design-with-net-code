@@ -22,4 +22,8 @@ module.exports = class ClassifiedAdText {
 
     return new ClassifiedAdText(supportedTagsReplaced.replace(/<.*?>/, ''));
   }
+
+  toString() {
+    return this.text;
+  }
 }
