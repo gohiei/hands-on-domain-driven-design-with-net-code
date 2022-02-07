@@ -1,7 +1,11 @@
-module.exports = class ClassifiedAdText {
+const Value = require('../Framework/Value');
+
+module.exports = class ClassifiedAdText extends Value {
   text;
 
   constructor(text) {
+    super();
+
     if (text === undefined || text.length > 100) {
       throw new Error('Text cannot be longer that 100 characters');
     }

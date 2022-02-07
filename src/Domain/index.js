@@ -9,4 +9,8 @@ module.exports = {
   UserId: require('./UserId'),
   ICurrencyLookup: require('./ICurrencyLookup'),
   CurrencyDetails: require('./CurrencyDetails'),
+  Picture: require('./Picture'),
+  PictureId: require('./PictureId'),
+  PictureSize: require('./PictureSize'),
+  Uri: require('./Uri'),
 };

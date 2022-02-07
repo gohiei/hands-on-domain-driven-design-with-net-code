@@ -1,6 +1,6 @@
 const assert = require('assert');
 const { v4: uuid } = require('uuid');
-const { ClassifiedAd, ClassifiedAdId, UserId, ClassifiedAdTitle, ClassifiedAdText, Price, Money } = require('../../Domain/index');
+const { ClassifiedAd, ClassifiedAdId, UserId, ClassifiedAdTitle, ClassifiedAdText, Price, PictureSize, Uri } = require('../../Domain/index');
 const FakeCurrencyLookup = require('./FakeCurrencyLookup');
 
 describe('Classified Ad publish', function () {
@@ -22,6 +22,11 @@ describe('Classified Ad publish', function () {
     classifiedAd.updateText(ClassifiedAdText.fromString('Please buy my stuff'));
     classifiedAd.updatePrice(
       Price.fromDecimal(100.10, 'EUR', new FakeCurrencyLookup())
+    );
+
+    classifiedAd.addPicture(
+      new Uri('https://this.is.my.fake.uri/123.jpg'),
+      new PictureSize(800, 600),
     );
 
     classifiedAd.requestToPublish();

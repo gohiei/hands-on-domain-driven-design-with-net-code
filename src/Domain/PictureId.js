@@ -1,14 +1,10 @@
 const Value = require('../Framework/Value');
 
-module.exports = class ClassifiedAdId extends Value {
+module.exports = class PictureId extends Value {
   id;
 
   constructor(id) {
     super();
-
-    if (id === undefined) {
-      throw new Error('Classified Ad id cannot be empty');
-    }
 
     this.id = id;
   }

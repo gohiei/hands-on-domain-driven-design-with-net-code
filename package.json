@@ -5,6 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "build": "babel src -d dist",
+    "server": "node dist/index.js",
+    "start": "npm run build && npm run server",
     "test": "NODE_ENV=test mocha ./src/Tests/ --recursive --exit"
   },
   "author": "gohiei <jcwshih@gmail.com>",

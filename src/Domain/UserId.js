@@ -1,7 +1,11 @@
-module.exports = class UserId {
+const Value = require('../Framework/Value');
+
+module.exports = class UserId extends Value {
   id;
 
   constructor(id) {
+    super();
+
     if (id === undefined) {
       throw new Error('User id cannot be empty');
     }

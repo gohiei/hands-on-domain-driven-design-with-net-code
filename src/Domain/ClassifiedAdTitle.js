@@ -1,7 +1,11 @@
-module.exports = class ClassifiedAdTitle {
+const Value = require('../Framework/Value');
+
+module.exports = class ClassifiedAdTitle extends Value {
   title;
 
   constructor(title) {
+    super();
+
     if (title === undefined || title.length > 100) {
       throw new Error('Title cannot be longer that 100 characters');
     }

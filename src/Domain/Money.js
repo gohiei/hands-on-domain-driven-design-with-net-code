@@ -1,8 +1,9 @@
 const assert = require('assert');
+const Value = require('../Framework/Value');
 const ICurrencyLookup = require('./ICurrencyLookup');
 const CurrencyDetails = require('./CurrencyDetails');
 
-module.exports = class Money {
+module.exports = class Money extends Value {
   static DefaultCurrency = 'EUR';
 
   amount;
@@ -10,6 +11,8 @@ module.exports = class Money {
 
   constructor(amount, currency) {
     assert(currency instanceof CurrencyDetails);
+
+    super();
 
     if (currency === CurrencyDetails.None) {
       throw new Error('Currency must be specified');
