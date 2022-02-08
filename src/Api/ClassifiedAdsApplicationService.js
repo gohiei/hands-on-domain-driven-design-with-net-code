@@ -1,6 +1,7 @@
 const IApplicationService = require('../Framework/IApplicationService');
 const { ClassifiedAds: { v1 } } = require('../Contracts/index');
 const { ClassifiedAd, ClassifiedAdId, UserId, ClassifiedAdTitle, ClassifiedAdText, Price } = require('../Domain');
+const ClassifiedAdDto = require('../Infrastructure/ClassifiedAdDto');
 
 module.exports = class ClassifiedAdsApplicationService extends IApplicationService {
   #repository;
@@ -55,18 +56,24 @@ module.exports = class ClassifiedAdsApplicationService extends IApplicationServi
       new UserId(command.ownerId),
     );
 
-    await this.#repository.add(classifiedAd);
+    const classifiedAdData = ClassifiedAdDto.toData(classifiedAd);
+
+    await this.#repository.add(classifiedAdData);
     await this.#unitOfWork.commit();
   }
 
   async handleUpdate(command, operation) {
-    const classifiedAd = await this.#repository.load(command.id);
+    const classifiedAdData = await this.#repository.load(command.id);
 
-    if (!classifiedAd) {
+    if (!classifiedAdData) {
       throw new Error(`Entity with id ${command.id} cannot be found`);
     }
 
+    const classifiedAd = ClassifiedAdDto.toDomainEntity(classifiedAdData, this.#currencyLookup);
+
     await operation(classifiedAd);
+
+    ClassifiedAdDto.toData(classifiedAd, classifiedAdData);
 
     await this.#unitOfWork.commit();
   }

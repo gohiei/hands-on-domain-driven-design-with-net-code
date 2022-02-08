@@ -37,28 +37,32 @@ module.exports = class ClassifiedAd extends AggregateRoot {
    * @param {UserId} ownerId
    */
   constructor(id, ownerId) {
+    super();
+
+    if (!id && !ownerId) {
+      return;
+    }
+
     assert(id instanceof ClassifiedAdId);
     assert(ownerId instanceof UserId);
 
-    super();
-
     this.pictures = [];
     this.apply(new Events.ClassifiedAdCreated({
-      id,
-      ownerId,
+      id: id.toString(),
+      ownerId: ownerId.toString(),
     }));
   }
 
   setTitle(title) {
     assert(title instanceof ClassifiedAdTitle);
 
-    this.apply(new Events.ClassifiedAdTitleChanged({ id: this.id, title }));
+    this.apply(new Events.ClassifiedAdTitleChanged({ id: this.id, title: title.toString() }));
   }
 
   updateText(text) {
     assert(text instanceof ClassifiedAdText);
 
-    this.apply(new Events.ClassifiedAdTextUpdated({ id: this.id, text }));
+    this.apply(new Events.ClassifiedAdTextUpdated({ id: this.id, text: text.toString() }));
   }
 
   updatePrice(price) {
