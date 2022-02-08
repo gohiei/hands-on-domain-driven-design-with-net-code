@@ -1,7 +1,7 @@
 const Value = require('../Framework/Value');
 
 module.exports = class ClassifiedAdText extends Value {
-  text;
+  text = null;
 
   constructor(text) {
     super();

@@ -4,12 +4,14 @@ const { ClassifiedAd, ClassifiedAdId, UserId, ClassifiedAdTitle, ClassifiedAdTex
 
 module.exports = class ClassifiedAdsApplicationService extends IApplicationService {
   #repository;
+  #unitOfWork;
   #currencyLookup;
 
-  constructor(repository, currencyLookup) {
+  constructor(repository, unitOfWork, currencyLookup) {
     super();
 
     this.#repository = repository;
+    this.#unitOfWork = unitOfWork;
     this.#currencyLookup = currencyLookup;
   }
 
@@ -41,8 +43,6 @@ module.exports = class ClassifiedAdsApplicationService extends IApplicationServi
         classifiedAd.requestToPublish();
       });
     }
-
-    console.log(command);
   }
 
   async handleCreate(command) {
@@ -55,7 +55,8 @@ module.exports = class ClassifiedAdsApplicationService extends IApplicationServi
       new UserId(command.ownerId),
     );
 
-    await this.#repository.save(classifiedAd);
+    await this.#repository.add(classifiedAd);
+    await this.#unitOfWork.commit();
   }
 
   async handleUpdate(command, operation) {
@@ -67,6 +68,6 @@ module.exports = class ClassifiedAdsApplicationService extends IApplicationServi
 
     await operation(classifiedAd);
 
-    await this.#repository.save(classifiedAd);
+    await this.#unitOfWork.commit();
   }
 };

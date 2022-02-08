@@ -2,9 +2,7 @@ const assert = require('assert');
 const IInternalEventHandler = require('./IInternalEventHandler');
 
 module.exports = class AggregateRoot extends IInternalEventHandler {
-  id;
-
-  changes = [];
+  #changes = [];
 
   when(event) {}
   ensureValidState() {}
@@ -12,15 +10,15 @@ module.exports = class AggregateRoot extends IInternalEventHandler {
   apply(event) {
     this.when(event);
     this.ensureValidState();
-    this.changes.push(event);
+    this.#changes.push(event);
   }
 
   getChanges() {
-    return this.changes;
+    return this.#changes;
   }
 
   clearChanges() {
-    this.changes = [];
+    this.#changes = [];
   }
 
   applyToEntity(entity, event) {

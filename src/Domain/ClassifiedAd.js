@@ -16,11 +16,11 @@ const InvalidEntityStateException = require('./InvalidEntityStateException');
 module.exports = class ClassifiedAd extends AggregateRoot {
   id;
   ownerId;
-  title;
-  text;
-  price;
+  title = null;
+  text = null;
+  price = null;
   state;
-  approvedBy;
+  approvedBy = null;
   pictures;
 
   static ClassifiedAdState = {

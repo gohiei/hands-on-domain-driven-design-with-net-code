@@ -28,6 +28,8 @@
     "koa": "^2.13.4",
     "koa-body": "^4.2.0",
     "koa-swagger-decorator": "^1.8.2",
-    "uuid": "^8.3.2"
+    "ravendb": "^5.2.0",
+    "uuid": "^8.3.2",
+    "winston": "^3.5.1"
   }
 }

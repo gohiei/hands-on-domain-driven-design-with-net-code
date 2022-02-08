@@ -1,6 +1,8 @@
-const { request, summary, query, path, body, tags } = require('koa-swagger-decorator');
+const { request, summary, body, tagsAll } = require('koa-swagger-decorator');
 const { ClassifiedAds: { v1 } } = require('../Contracts/index');
-module.exports = class ClassifiedAdsCommandsApi {
+
+@tagsAll(['ClassifiedAd'])
+class ClassifiedAdsCommandsApi {
   constructor(ctx) {
     // @todo use application service is better than DI
     this.applicationService = ctx.classifiedAdApplicationService;
@@ -21,7 +23,7 @@ module.exports = class ClassifiedAdsCommandsApi {
     ctx.body = 'ok';
   }
 
-  @request('put', '/name')
+  @request('put', '/ad/name')
   @summary('Set title of classified ad')
   @body({ id: { type: 'string', required: true }, title: { type: 'string', required: true } })
   async setTitle(ctx) {
@@ -36,7 +38,7 @@ module.exports = class ClassifiedAdsCommandsApi {
     ctx.body = 'ok';
   }
 
-  @request('put', '/text')
+  @request('put', '/ad/text')
   @summary('Update text of classified ad')
   @body({ id: { type: 'string', required: true }, text: { type: 'string', required: true } })
   async updateText(ctx) {
@@ -51,7 +53,7 @@ module.exports = class ClassifiedAdsCommandsApi {
     ctx.body = 'ok';
   }
 
-  @request('put', '/price')
+  @request('put', '/ad/price')
   @summary('Update price of classified ad')
   @body({
     id: { type: 'string', required: true },
@@ -70,7 +72,7 @@ module.exports = class ClassifiedAdsCommandsApi {
     ctx.body = 'ok';
   }
 
-  @request('put', '/publish')
+  @request('put', '/ad/publish')
   @summary('Request a classified ad to publish')
   @body({ id: { type: 'string', required: true } })
   async requestToPublish(ctx) {
@@ -85,3 +87,5 @@ module.exports = class ClassifiedAdsCommandsApi {
     ctx.body = 'ok';
   }
 }
+
+module.exports =  ClassifiedAdsCommandsApi;
